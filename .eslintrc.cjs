@@ -1,6 +1,12 @@
 /** @type { import("eslint").Linter.FlatConfig } */
 module.exports = {
 	root: true,
+	globals: {
+		$state: true,
+		$derived: true,
+		$effect: true,
+		$props: true
+	},
 	extends: [
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended',

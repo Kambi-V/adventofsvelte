@@ -2,6 +2,10 @@
 // for information about these interfaces
 declare global {
 	namespace App {
+		type NaughtyList = {
+			name: string;
+			tally: number;
+		};
 		// interface Error {}
 		// interface Locals {}
 		// interface PageData {}
