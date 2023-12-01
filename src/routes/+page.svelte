@@ -5,7 +5,7 @@
 	let name = $state<string>('');
 	let tally = $state<number>(0);
 	let { form } = $props<{ form: ActionResult }>();
-	let list = $state([]);
+	let list = $state<Array<NaughtyList>>([]);
 	console.log(`in ts`);
 	console.log(form);
 </script>
@@ -13,7 +13,7 @@
 <div class="w-full px-8 py-8">
 	<div>
 		<form
-			class="flex w-full mx-auto bg-gray-800 px-4 py-3 gap-4"
+			class="flex w-full mx-auto bg-orange-400 rounded-xl px-4 py-3 gap-4"
 			action="?/addRecord"
 			method="post"
 		>
@@ -26,7 +26,7 @@
 				<input type="number" required class="px-4 py-2 rounded-xl" bind:value={tally} />
 			</div>
 			<div class="flex flex-col pl-6 justify-end">
-				<button class="px-6 py-2 bg-gray-500 rounded-2xl">Add</button>
+				<button class="px-6 py-2 bg-orange-200 rounded-2xl">Add</button>
 			</div>
 		</form>
 	</div>
@@ -42,8 +42,10 @@
 						return async ({ result }) => {
 							console.log(`in use enhance`);
 							console.log(result);
-							if (result.status === 200) {
-								list = result?.data.list;
+							if (result.type === 'success') {
+								console.log(result.data);
+								list = result.data?.list as NaughtyList;
+								console.log(list);
 							}
 						};
 					}}
@@ -52,7 +54,7 @@
 				</form></span
 			>
 		</div>
-		<div class="py-16 h-[700px] overflow-y-auto">
+		<div class="py-16">
 			{#if list.length !== 0}
 				<table class="w-full mx-auto">
 					<thead>
